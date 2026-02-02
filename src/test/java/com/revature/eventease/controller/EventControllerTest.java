@@ -16,8 +16,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 //Integration Testing
 @WebMvcTest(EventController.class)
+/**
+ * Integration tests for EventController.
+ * Uses MockMvc to simulate HTTP requests and verify responses.
+ */
 class EventControllerTest {
 
     @Autowired
@@ -26,6 +31,9 @@ class EventControllerTest {
     @MockBean
     private EventService eventService;
 
+    /**
+     * Test case: Verify POST /events creates a new event and returns 201 Created.
+     */
     @Test
     void createEvent_ShouldReturnCreated() throws Exception {
         Event event = new Event(1L, "Test Event", LocalDate.now(), "Location", "Desc");
@@ -39,6 +47,9 @@ class EventControllerTest {
                 .andExpect(jsonPath("$.name").value("Test Event"));
     }
 
+    /**
+     * Test case: Verify GET /events/{id} returns the event JSON and 200 OK.
+     */
     @Test
     void getEventById_ShouldReturnEvent() throws Exception {
         Event event = new Event(1L, "Test Event", LocalDate.now(), "Location", "Desc");
@@ -49,6 +60,10 @@ class EventControllerTest {
                 .andExpect(jsonPath("$.name").value("Test Event"));
     }
 
+    /**
+     * Test case: Verify DELETE /events/{id} calls delete service and returns 204 No
+     * Content.
+     */
     @Test
     void deleteEvent_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/events/1"))

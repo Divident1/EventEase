@@ -17,6 +17,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+/**
+ * Unit tests for EventService.
+ * Uses Mockito to mock the EventRepository dependencies.
+ */
 class EventServiceTest {
 
     @Mock
@@ -25,6 +29,9 @@ class EventServiceTest {
     @InjectMocks
     private EventService eventService;
 
+    /**
+     * Test case: Verify that createEvent saves the event and returns it with an ID.
+     */
     @Test
     void createEvent_ShouldReturnSavedEvent() {
         Event event = new Event(null, "Test Event", LocalDate.now(), "Location", "Desc");
@@ -38,6 +45,9 @@ class EventServiceTest {
         assertEquals("Test Event", result.getName());
     }
 
+    /**
+     * Test case: Verify that getEventById returns the correct event when it exists.
+     */
     @Test
     void getEventById_ShouldReturnEvent_WhenExists() {
         Event event = new Event(1L, "Test Event", LocalDate.now(), "Location", "Desc");
@@ -48,6 +58,10 @@ class EventServiceTest {
         assertEquals(1L, result.getId());
     }
 
+    /**
+     * Test case: Verify that getEventById throws EntityNotFoundException when the
+     * ID does not exist.
+     */
     @Test
     void getEventById_ShouldThrowException_WhenNotFound() {
         when(eventRepository.findById(1L)).thenReturn(Optional.empty());
@@ -55,6 +69,10 @@ class EventServiceTest {
         assertThrows(EntityNotFoundException.class, () -> eventService.getEventById(1L));
     }
 
+    /**
+     * Test case: Verify that updateEvent updates the fields and returns the saved
+     * event.
+     */
     @Test
     void updateEvent_ShouldReturnUpdatedEvent() {
         Event existingEvent = new Event(1L, "Old Name", LocalDate.now(), "Old Loc", "Old Desc");
