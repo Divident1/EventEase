@@ -39,7 +39,7 @@ class EventControllerTest {
         Event event = new Event(1L, "Test Event", LocalDate.now(), "Location", "Desc");
         when(eventService.createEvent(any(Event.class))).thenReturn(event);
 
-        mockMvc.perform(post("/events")
+        mockMvc.perform(post("/api/v1/events")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\":\"Test Event\", \"date\":\"2024-12-01\", \"location\":\"Location\"}"))
                 .andExpect(status().isCreated())
@@ -55,7 +55,7 @@ class EventControllerTest {
         Event event = new Event(1L, "Test Event", LocalDate.now(), "Location", "Desc");
         when(eventService.getEventById(1L)).thenReturn(event);
 
-        mockMvc.perform(get("/events/1"))
+        mockMvc.perform(get("/api/v1/events/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Test Event"));
     }
@@ -66,7 +66,7 @@ class EventControllerTest {
      */
     @Test
     void deleteEvent_ShouldReturnNoContent() throws Exception {
-        mockMvc.perform(delete("/events/1"))
+        mockMvc.perform(delete("/api/v1/events/1"))
                 .andExpect(status().isNoContent());
     }
 }

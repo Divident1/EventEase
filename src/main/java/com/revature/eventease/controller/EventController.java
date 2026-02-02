@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/api/v1/events")
 @RequiredArgsConstructor
 /**
  * REST Controller for Event resources.
