@@ -26,4 +26,20 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
+
+    public Event updateEvent(Long id, Event eventDetails) {
+        Event event = getEventById(id);
+        event.setName(eventDetails.getName());
+        event.setDate(eventDetails.getDate());
+        event.setLocation(eventDetails.getLocation());
+        event.setDescription(eventDetails.getDescription());
+        return eventRepository.save(event);
+    }
+
+    public void deleteEvent(Long id) {
+        if (!eventRepository.existsById(id)) {
+            throw new EntityNotFoundException("Event not found with id: " + id);
+        }
+        eventRepository.deleteById(id);
+    }
 }
