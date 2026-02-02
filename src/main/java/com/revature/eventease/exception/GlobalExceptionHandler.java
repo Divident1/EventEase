@@ -12,13 +12,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+/**
+ * Global exception handler for the application.
+ * Captures exceptions thrown by controllers and returns appropriate HTTP
+ * responses.
+ */
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles EntityNotFoundException.
+     *
+     * @param ex The exception thrown when an entity is not found.
+     * @return A ResponseEntity containing the error message and 404 Status.
+     */
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Handles MethodArgumentNotValidException (validation errors).
+     *
+     * @param ex The exception thrown when validation fails.
+     * @return A ResponseEntity containing a map of field errors and 400 Status.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
