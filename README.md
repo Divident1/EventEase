@@ -4,39 +4,68 @@ Hi there! 👋 This is **EventEase**, a simple but powerful REST API I built to 
 
 I built this using **Spring Boot** because I wanted it to be robust and easy to scale. For the database, I went with **MySQL** so everything is stored reliably.
 
-## What's Inside?
+## 🚀 Key Features
 
-I've implemented full CRUD operations (Create, Read, Update, Delete). Here's what you can do:
+- **Full CRUD Support**: Complete lifecycle management for events.
+- **RESTful API Design**: Clean, standard-compliant endpoints.
+- **Data Validation**: Ensures all events have a name, date, and location.
+- **Global Exception Handling**: Returns friendly error messages when things go wrong (like 404 or 400).
+- **API Versioning**: Future-proofed with `/api/v1/` prefix.
 
-- **Create an Event**: `POST /api/v1/events` - Add a new event to the system.
-- **Get All Events**: `GET /api/v1/events` - See everything that's coming up.
-- **Find an Event**: `GET /api/v1/events/{id}` - Look up specific details for an event.
-- **Update Details**: `PUT /api/v1/events/{id}` - Change the date, location, or description.
-- **Delete an Event**: `DELETE /api/v1/events/{id}` - Remove an event if it's cancelled.
+## 🛠 Tech Stack
 
-## How to Run It
+- **Backend**: Java 17, Spring Boot 3.2.1
+- **Database**: MySQL 8.0
+- **Documentation**: SpringDoc OpenAPI (Swagger UI)
+- **Testing**: JUnit 5, Mockito, MockMvc
+- **Build Tool**: Maven
 
-If you want to try it out on your machine, it's pretty straightforward:
+## 📦 Project Structure
+
+```text
+src/main/java/com/revature/eventease/
+├── controller/  # REST Endpoints (API Layer)
+├── service/     # Business Logic (Service Layer)
+├── repository/  # Database Access (Data Layer)
+├── model/       # Data Models (Entities)
+└── exception/   # Global Error Handling
+```
+
+## 🔌 API Endpoints
+
+I've implemented full CRUD operations. Here's what you can do:
+
+- **Create an Event**: `POST /api/v1/events` - Add a new event.
+- **Get All Events**: `GET /api/v1/events` - See everything coming up.
+- **Find an Event**: `GET /api/v1/events/{id}` - Look up specific details.
+- **Update Details**: `PUT /api/v1/events/{id}` - Change date, location, or description.
+- **Delete an Event**: `DELETE /api/v1/events/{id}` - Remove an event.
+
+## 🏁 How to Run It
 
 1.  Make sure you have **Java 17** and **Maven** installed.
-2.  You'll need a MySQL database running. I used `eventease` as the database name with `root/root` credentials. You can change this in `src/main/resources/application.properties` if your setup is different.
+2.  You'll need a MySQL database running.
+    - Default database name: `eventease`
+    - Credentials: `root/root`
+    - *(Adjust these in `src/main/resources/application.properties` if needed)*.
 3.  Open a terminal in the project folder and run:
     ```bash
     mvn spring-boot:run
     ```
-4.  Once it's running, you can test the endpoints using Postman or curl.
+4.  Once it's running, visit the **Swagger UI** for interactive testing:
+    [`http://localhost:8080/swagger-ui/index.html`](http://localhost:8080/swagger-ui/index.html)
 
-## Testing
+## 🧪 Testing
 
-I didn't want to leave things to chance, so I wrote some tests:
-- **Unit Tests**: Checks the logic in my `EventService` to make sure it handles data correctly.
-- **Integration Tests**: Tests the `EventController` to ensure the API endpoints actually respond the way they should.
+I wrote both Unit and Integration tests to ensure high code quality:
+- **Unit Tests**: Verifies `EventService` business logic.
+- **Integration Tests**: Verifies `EventController` endpoints.
 
-You can run them yourself with:
+Run them with:
 ```bash
 mvn test
 ```
 
-## Questions?
+## 📝 Questions?
 
-Feel free to poke around the code! I tried to add helpful comments (JavaDocs) to explain what the main classes do. If you spot anything or have questions, let me know.
+Feel free to poke around the code! I've added JavaDocs to explain how it all works under the hood. If you spot anything or have questions, let me know.
