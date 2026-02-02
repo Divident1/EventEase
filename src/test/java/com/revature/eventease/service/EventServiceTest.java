@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,5 +87,20 @@ class EventServiceTest {
 
         assertEquals("New Name", result.getName());
         assertEquals("New Loc", result.getLocation());
+    }
+
+    /**
+     * Test case: Verify that getAllEvents returns a list of events.
+     */
+    @Test
+    void getAllEvents_ShouldReturnListOfEvents() {
+        Event event1 = new Event(1L, "Event 1", LocalDate.now(), "Loc 1", "Desc 1");
+        Event event2 = new Event(2L, "Event 2", LocalDate.now(), "Loc 2", "Desc 2");
+
+        when(eventRepository.findAll()).thenReturn(List.of(event1, event2));
+
+        List<Event> result = eventService.getAllEvents();
+
+        assertEquals(2, result.size());
     }
 }

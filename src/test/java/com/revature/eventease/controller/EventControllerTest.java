@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -68,5 +69,21 @@ class EventControllerTest {
     void deleteEvent_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/api/v1/events/1"))
                 .andExpect(status().isNoContent());
+    }
+
+    /**
+     * Test case: Verify GET /api/v1/events returns a list of events and 200 OK.
+     */
+    @Test
+    void getAllEvents_ShouldReturnList() throws Exception {
+        Event event1 = new Event(1L, "Event 1", LocalDate.now(), "Loc 1", "Desc 1");
+        Event event2 = new Event(2L, "Event 2", LocalDate.now(), "Loc 2", "Desc 2");
+
+        when(eventService.getAllEvents()).thenReturn(List.of(event1, event2));
+
+        mockMvc.perform(get("/api/v1/events"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(2))
+                .andExpect(jsonPath("$[0].name").value("Event 1"));
     }
 }
